@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Titulo</title>
+    {% include "/includes/header_imports.jinja2" %}
+    {{h.less_stylesheet_link(resource('css', 'blog.less'))}}
+    {{h.javascript_link(resource('js', 'less-1.1.3.min.js'))}}
+
+    <script type="text/javascript" >
+       $(document).ready(function() {
+          $(".markitup").markItUp(mySettings);
+          $(".field_error").corner('bottom');
+       });
+    </script>
+</head>
+
+<body>
+    {% include "/includes/flash.jinja2" %}
+    
+    <div id="superheader">
+        <div class="container">
+            renatopp.com
+
+            <span class="right">
+                <img src="{{resource('images', 'icons', 'twitter-32.png')}}" height="18">
+                <img src="{{resource('images', 'icons', 'facebook-32.png')}}" height="18">
+                <img src="{{resource('images', 'icons', 'rss-32.png')}}" height="18">
+
+                <input id="search" type="text">
+                <input id="search-button" type="submit" value=" ">
+            </span>
+        </div>
+    </div>
+
+    <div id="header">
+        <div class="container">
+            <span id="title">Renatopp</span>
+        </div>
+    </div>
+
+    <div id="main"></div>
+
+    <div id="footer">
+        <div class="container"></div>
+    </div>
+
+
+</body>
+</html>
