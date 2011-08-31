@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Titulo</title>
+    {% include "/include/head_imports.jinja2" %}
+    {{h.stylesheet_link(resource('css', 'admin.css'))}}
+    {{h.stylesheet_link(resource('css', 'pygments', 'pygments_tango.css'))}}
+    {{h.stylesheet_link(resource('js', 'markitup', 'skins', 'simple', 'style.css'))}}
+    {{h.stylesheet_link(resource('js', 'markitup', 'sets', 'rst', 'style.css'))}}
+    {{h.javascript_link(resource('js', 'markitup', 'sets', 'rst', 'set.js'))}}
+    {{h.javascript_link(resource('js', 'markitup', 'jquery.markitup.js'))}}
+    {{h.javascript_link(resource('js', 'jquery.corner.js'))}}
+
+    <script type="text/javascript" >
+       $(document).ready(function() {
+          $(".markitup").markItUp(mySettings);
+          $(".field_error").corner('bottom');
+       });
+    </script>
+</head>
+
+<body>
+    {% include "/include/flash.jinja2" %}
+    <div id="page">
+        <div id="content">
+        {% block content %}
+
+        {% endblock %}
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{% if request.session.peek_flash('success') %}
+    <script>
+        $.gritter.add({
+            title: "Sucesso",
+            text: "{{request.session.pop_flash('success')[0]}}",
+            image: "{{resource('images/icons/accept-64.png')}}"
+        });
+    </script>
+{% endif %}
+
+{% if request.session.peek_flash('error') %}
+    <script>
+        $.gritter.add({
+            title: "Erro",
+            text: "{{request.session.pop_flash('error')[0]}}",
+            image: "{{resource('images/icons/delete-64.png')}}"
+        });
+    </script>
+{% endif %}

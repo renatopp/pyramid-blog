@@ -1,0 +1,12 @@
+{% if (items|length) %}
+    <table class="datatable">
+        <tfoot class="pagination">
+            <tr>
+                <td colspan="{{grid.render_fields|length}}">{{h.paginate(items)}}</td>
+            </tr>
+        </tfoot>
+        {{grid.render()|safe}}
+    </table>
+{% else %}
+    Nenhum item cadastrado
+{% endif %}

@@ -1,0 +1,8 @@
+{% extends "/bases/layout_admin.jinja2" %}
+{% block content %}
+
+{{h.link_to('Novo Item', (url_base+'_action')|route_url(action='create'))}}
+<br>
+{% include "/includes/crud_index.jinja2" %}
+
+{% endblock %}

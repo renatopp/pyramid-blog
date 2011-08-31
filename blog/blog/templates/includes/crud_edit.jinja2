@@ -1,0 +1,10 @@
+{{h.form('')}}
+    <div class="form">
+        {{form.render()|safe}}
+
+        <div class="buttons">
+            {{h.submit('submit', 'Salvar', class_='goodchoice')}}
+            <input type="button" value="Cancelar" onclick="window.location='{{url_base|route_url}}'">
+        </div>
+    </div>
+{{h.end_form()}}

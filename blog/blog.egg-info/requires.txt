@@ -1,0 +1,13 @@
+pyramid
+SQLAlchemy
+transaction
+pyramid_tm
+pyramid_debugtoolbar
+zope.sqlalchemy
+docutils
+webhelpers
+formalchemy
+pyramid_jinja2
+pyramid_handlers
+pyramid_beaker
+psycopg2
