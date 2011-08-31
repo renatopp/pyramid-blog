@@ -34,5 +34,10 @@ class User(Base, BaseModel):
 
     @classmethod
     def _configure_grid(cls, grid):
-        grid.configure(readonly=True)
+        grid.configure(
+            readonly=True,
+            exclude=[
+                grid.posts,
+            ]
+        )
         grid.add_operations('user')

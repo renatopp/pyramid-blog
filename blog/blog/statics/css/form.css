@@ -1,5 +1,5 @@
 .markItUp {
-    width:99.2%;
+    width:99%;
 }
 
 .field_error {
@@ -43,7 +43,7 @@ div.form input[type=password],
 div.form textarea,
 div.form select {
     outline:none;
-    width:99.9%;
+    width:99%;
 }
 
 div.form .buttons {

@@ -90,6 +90,7 @@ def main(global_config, **settings):
     config.add_magic_handler('user')
     config.add_magic_handler('post')
     config.add_magic_handler('comment')
+    config.add_magic_handler('tag')
 
 
     return config.make_wsgi_app()

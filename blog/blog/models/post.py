@@ -2,16 +2,21 @@
 import datetime
 from blog.models.meta import Base, BaseModel
 from sqlalchemy import Integer, Unicode, UnicodeText, DateTime, Boolean, ForeignKey
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship, relation
 from formalchemy import Column
 
 class Post(Base, BaseModel):
+    """
+    status = {Published, Draft, Trash}
+    type = {Post, Article, Page}
+    """
     __tablename__ = 'post'
 
     id = Column(Integer, primary_key=True)
     title = Column(Unicode, nullable=False, unique=True, label=u'Título')
     alias = Column(Unicode, nullable=False, unique=True, label=u'Alias')
-    content = Column(Unicode, nullable=False, label=u'')
+    summary = Column(UnicodeText, label=u'Descrição da Postagem')
+    content = Column(UnicodeText, nullable=False, label=u'')
     date = Column(DateTime, nullable=False, label=u'Data de Criação')
     modified = Column(DateTime, label=u'Data de Modificação')
     status = Column(Unicode, nullable=False, label=u'Status')
@@ -19,9 +24,10 @@ class Post(Base, BaseModel):
     order = Column(Integer, label=u'Ordem')
     allow_comment = Column(Boolean, nullable=False, label=u'Permitir Comentários')
     
-    #  parent
-    #  tags
+    parent_id = Column(Integer, ForeignKey('post.id'))
+    parent = relation('Post', remote_side=[id], backref='children')
     user_id = Column(Integer, ForeignKey('user.id'), nullable=False)
+    categorys = relationship('Tag', secondary='association_post_category', backref='posts')
     comments = relationship('Comment', backref='post')
 
     def __init__(self):
@@ -39,10 +45,13 @@ class Post(Base, BaseModel):
             readonly=True,
             exclude=[
                 grid.alias,
+                grid.summary,
                 grid.content,
                 grid.type,
                 grid.order,
                 grid.comments,
+                grid.parent,
+                grid.children,
             ],
         )
         grid.add_operations('post')
@@ -58,6 +67,7 @@ class Post(Base, BaseModel):
                 form.comments,
             ], 
             options=[
-                form.content.textarea().with_html(class_='markitup')
+                # form.summary.textarea().with_html(class_='markitup'),
+                form.content.textarea().with_html(class_='markitup'),
             ]
         )
