@@ -1,6 +1,5 @@
 #-*- coding:utf-8 -*-
 import datetime
-from blog import config
 from blog.models.meta import Base, BaseModel
 from sqlalchemy import Integer, Unicode, UnicodeText, DateTime, Boolean, ForeignKey
 from sqlalchemy.orm import relationship
@@ -20,12 +19,10 @@ class Post(Base, BaseModel):
     order = Column(Integer, label=u'Ordem')
     allow_comment = Column(Boolean, nullable=False, label=u'Permitir Comentários')
     
-    # Relations
     #  parent
     #  tags
-    #  user_id = Column(Integer, ForeignKey('user.id'), nullable=False)
-    #  comments = relationship('Comment', backref='post')
-    # =========
+    user_id = Column(Integer, ForeignKey('user.id'), nullable=False)
+    comments = relationship('Comment', backref='post')
 
     def __init__(self):
         self.date = datetime.datetime.now()

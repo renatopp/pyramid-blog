@@ -2,8 +2,9 @@
 <html>
 <head>
     <title>Titulo</title>
-    {% include "/include/head_imports.jinja2" %}
-    {{h.stylesheet_link(resource('css', 'admin.css'))}}
+    {% include "/includes/header_imports.jinja2" %}
+    {{h.less_stylesheet_link(resource('css', 'admin.less'))}}
+    {{h.javascript_link(resource('js', 'less-1.1.3.min.js'))}}
     {{h.stylesheet_link(resource('css', 'pygments', 'pygments_tango.css'))}}
     {{h.stylesheet_link(resource('js', 'markitup', 'skins', 'simple', 'style.css'))}}
     {{h.stylesheet_link(resource('js', 'markitup', 'sets', 'rst', 'style.css'))}}
@@ -20,13 +21,31 @@
 </head>
 
 <body>
-    {% include "/include/flash.jinja2" %}
-    <div id="page">
+    {% include "/includes/flash.jinja2" %}
+    <div id="header">
+        <div class="container">
+            <span id="title">Renatopp</span>
+
+            <div id="menu">
+                <ul>
+                    <li>Blog</li>
+                    <li>Artigos</li>
+                    <li>Snippets</li>
+                    <li>Sobre</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="main">
         <div id="content">
         {% block content %}
 
         {% endblock %}
         </div>
     </div>
+
+
+    {% include "/includes/footer.jinja2" %}
 </body>
 </html>

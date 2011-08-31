@@ -1,0 +1,42 @@
+{% extends "/bases/layout_admin.jinja2" %}
+{% block content %}
+
+{{h.form('')}}
+    <div class="form">
+        {{form.render()|safe}}
+
+        <div class="buttons">
+            {{h.submit('submit', 'Salvar Rascunho', class_='goodchoice')}}
+            {{h.submit('submit', 'Publicar', class_='goodchoice')}}
+            <input type="button" value="Cancelar" onclick="window.location='{{url_base|route_url}}'">
+        </div>
+    </div>
+{{h.end_form()}}
+
+
+
+<script type="text/javascript">
+    $('#Post--title').keydown(function(event){
+        if (event.which == '9') {
+            $('#Post--alias').focus();
+
+            $.get(
+                "{{'post_action'|route_url(action='titlelize')}}"+'?title='+$('#Post--title').val(), 
+                function(data) {
+                    $('#Post--alias').val(data);
+                }
+            );
+        }
+    });
+
+    $('#Post--title').blur(function(){
+        $.get(
+            "{{'post_action'|route_url(action='titlelize')}}"+'?title='+$('#Post--title').val(), 
+            function(data) {
+                $('#Post--alias').val(data);
+            }
+        );
+    });
+</script>
+
+{% endblock %}

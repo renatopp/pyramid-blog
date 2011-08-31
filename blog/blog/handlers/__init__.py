@@ -91,7 +91,7 @@ class CrudHandler(BaseHandler):
         if self.renderer_base:
             renderer = self.renderer_base+'/index.jinja2'
         else:
-            renderer = '/default/crud_index.jinja2'
+            renderer = '/bases/crud_index.jinja2'
         return self.render(renderer, params)
 
     def create(self):
@@ -99,7 +99,7 @@ class CrudHandler(BaseHandler):
         if self.renderer_base:
             renderer = self.renderer_base+'/edit.jinja2'
         else:
-            renderer = '/default/crud_edit.jinja2'
+            renderer = '/bases/crud_edit.jinja2'
         return self.render(renderer, params)
 
     def update(self):
@@ -107,7 +107,7 @@ class CrudHandler(BaseHandler):
         if self.renderer_base:
             renderer = self.renderer_base+'/edit.jinja2'
         else:
-            renderer = '/default/crud_edit.jinja2'
+            renderer = '/bases/crud_edit.jinja2'
         return self.render(renderer, params)
 
     def delete(self):
