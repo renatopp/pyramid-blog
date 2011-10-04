@@ -1,3 +1,4 @@
 *.pyc
 *.db
 blog/blog.egg-info/*
+blog/data/*
