@@ -4,6 +4,8 @@
     <title>Titulo</title>
     {% include "/includes/header_imports.jinja2" %}
     {{h.stylesheet_link(resource('css', 'blog.css'))}}
+    {{h.javascript_link('https://apis.google.com/js/plusone.js')}}
+    {{h.javascript_link('http://connect.facebook.net/en_US/all.js#xfbml=1')}}
 
     <script type="text/javascript" >
        $(document).ready(function() {
@@ -19,27 +21,23 @@
 
         <div id="blog-main" class="container">
             <div class="row">
-                <div id="blog-content" class="span12">
-
-                    <!-- <span class="label success">New</span> -->
-                    <a href="/users">Users</a> | <a href="/posts">Posts</a> | 
-                    <a href="/tags">Tags</a><br>
+                <div id="blog-content-wrap" class="span12">
                     {% block content %}
 
                     {% endblock %}
                 </div>
 
                 <div id="blog-sidebar" class="span4">
-                lol
+                    <a href="/users">Users</a> | 
+                    <a href="/posts">Posts</a> | 
+                    <a href="/tags">Tags</a><br>
+                    {% include "/includes/sidebar.jinja2" %}
                 </div>
             </div>
         </div>
 
     </div>
 
-    {% include "/includes/footer.jinja2" %}
-
-    
     {% include "/includes/footer.jinja2" %}
 
 </body>

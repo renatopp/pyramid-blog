@@ -9,5 +9,8 @@ import blog.libs.rest.reSTpygments
 import blog.libs.rest.reSTblog
 
 def reST2HTML(str):
+    if not str:
+        return u''
+        
     parts = core.publish_parts(source=str, writer_name='html')
     return parts['body_pre_docinfo'] + parts['fragment']

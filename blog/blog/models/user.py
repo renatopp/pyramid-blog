@@ -27,9 +27,28 @@ class User(Base, BaseModel):
         return '%s (%s)'%(self.nickname or self.realname, self.email)
 
     @classmethod
-    def _before_add(cls, form, params=None):
-        passsalt = form.model.password+g.SALT
-        form.model.password = hashlib.md5(passsalt).hexdigest()
+    def get_pass_hash(cls, password):
+        passsalt = password+g.SALT
+        return hashlib.md5(passsalt).hexdigest()
+
+    @classmethod
+    def _before_create(cls, form, params=None):
+        form.model.password = cls.get_pass_hash(form.model.password)
+
+    @classmethod
+    def _before_update(cls, obj, form, params=None):
+        pass
+
+    @classmethod
+    def _configure_form(cls, form):
+        form.configure(
+            options=[
+                form.password.password()
+            ],
+            exclude=[
+                form.posts
+            ]
+        )
 
     @classmethod
     def _configure_grid(cls, grid):

@@ -23,7 +23,7 @@ class PostHandler(CrudHandler):
         if self.request.POST:
             if form.validate():
                 form.sync()
-                self.model._before_add(form, self.request.POST)
+                self.model._before_create(form, self.request.POST)
                 Session.add(form.model)
                 self.request.session.flash(u'Item incluído com sucesso.', 'success')
                 return HTTPFound(location=g.url(self.url_base))

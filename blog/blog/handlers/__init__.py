@@ -54,7 +54,7 @@ class CrudHandler(BaseHandler):
         if self.request.params:
             if form.validate():
                 form.sync()
-                self.model._before_add(form, self.request.params)
+                self.model._before_create(form, self.request.params)
                 Session.add(form.model)
                 self.request.session.flash(u'Item incluído com sucesso.', 'success')
                 return HTTPFound(location=g.url(self.url_base))
@@ -71,7 +71,7 @@ class CrudHandler(BaseHandler):
         if self.request.params:
             if form.validate():
                 form.sync()
-                self.model._before_add(form, self.request.params)
+                self.model._before_update(item, form, self.request.params)
                 Session.add(form.model)
                 self.request.session.flash(u'Item atualizado com sucesso.', 'success')
                 return HTTPFound(location=g.url(self.url_base))

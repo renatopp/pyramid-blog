@@ -20,7 +20,7 @@ class Post(Base, BaseModel):
     date = Column(DateTime, nullable=False, label=u'Data de Criação')
     modified = Column(DateTime, label=u'Data de Modificação')
     status = Column(Unicode, nullable=False, label=u'Status')
-    type = Column(Unicode, nullable=False, label=u'Tipo')
+    type = Column(Unicode, nullable=False, label=u'Tipo da Postagem')
     order = Column(Integer, label=u'Ordem')
     allow_comment = Column(Boolean, nullable=False, label=u'Permitir Comentários')
     
@@ -39,10 +39,12 @@ class Post(Base, BaseModel):
         return self.title
 
     @classmethod
-    def _before_add(cls, form, params=None):
+    def _before_create(cls, form, params=None):
         if params:
             if 'Rascunho' in params.get('submit'):
                 form.model.status = 'Draft'
+            else:
+                form.model.status = 'Published'
 
     @classmethod
     def _configure_grid(cls, grid):
@@ -66,18 +68,30 @@ class Post(Base, BaseModel):
 
     @classmethod
     def _configure_form(cls, form):
+        types = [
+            (u'Post comum', u'post'), 
+            (u'Artigo', u'article'),
+            (u'Página de wiki', u'page'), 
+        ]
+
         form.configure(
             exclude=[
                 form.date, 
                 form.modified,
                 form.status,
-                form.type,
             ], 
             options=[
-                # form.summary.textarea().with_html(class_='markitup'),
-                form.content.textarea().with_html(class_='markitup'),
+                form.title.with_html(class_='span12'),
+                form.alias.with_html(class_='span12'),
+                form.summary.textarea().with_html(class_='span12'),
+                form.content.textarea().with_html(class_='span12 markitup'),
+                form.type.radio(types),
+                form.order.with_html(class_='span1'),
+                form.parent.with_html(class_='span12'),
+                form.categorys.with_html(class_='span12'),
+                form.user.with_html(class_='span12'),
+                form.children.with_html(class_='span12'),
             ]
         )
 
 
-        

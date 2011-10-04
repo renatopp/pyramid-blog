@@ -1,0 +1,86 @@
+{% extends "/bases/layout_blog.jinja2" %}
+
+{% macro post_header(post) -%}
+<div class="span12 blog-postheader">
+    <div class="row">
+        <div class="span10">
+            <div class="blog-posttitle">
+                <h2>{{post.title}}</h2>
+            </div>
+        </div>
+        <div class="span2">
+            <div class="blog-postinfo">
+                {{h.pdate(post.date)}}<br>
+                {{h.ptime(post.date)}}
+            </div>
+        </div>
+    </div>
+</div>
+{%- endmacro %}
+
+{% macro post_content(post) -%}
+<div class="span12 blog-postbody">
+    <div class="blog-postcontent">
+        {{rest(post.content)|safe}}
+    </div>
+</div>
+{%- endmacro %}
+
+{% macro post_summary(post) -%}
+<div class="span12 blog-postbody-summary">
+    <div class="blog-postcontent">
+        {{rest(post.summary)|default('<p>Essa postagem não possui descrição</p>', true)|safe}}
+    </div>
+</div>
+{%- endmacro %}
+
+{% macro post_footer(post) -%}
+<div class="span12 blog-postfooter">
+    <div class="blog-postfootercontent">
+        <div class="row">
+            <div class="span6">
+                <div style="padding:5px">
+                    <input type="button" class="btn primary" value="Comentar">
+                </div>
+            </div>
+            <div class="span6">
+                <div style="padding:5px;margin-top:5px">
+                    {{h.googleplus('http://renatopp.com')|safe}}
+                    {{h.facebook('http://renatopp.com')|safe}}
+                    {{h.twitter('http://renatopp.com')|safe}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{%- endmacro %}
+
+{% block content %}
+
+{% for post in posts %}
+
+<div id="blog-content">
+    {% if loop.first and display is sameas 'front' %}
+        <div class="row">
+            {{ post_header(post) }}
+            {{ post_content(post) }}
+            {{ post_footer(post) }}
+        </div>
+    {% else %}
+        <div class="row">
+            {{ post_header(post) }}
+            {{ post_summary(post) }}
+        </div>
+    {% endif %}
+</div>
+
+{% endfor %}
+
+<div class="pagination center">
+    {{h.paginate(posts)}}
+</div>
+
+{% endblock %}
+
+
+

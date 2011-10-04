@@ -30,6 +30,23 @@ config.engine = Jinja2Engine(
     directories=[os.path.dirname(__file__)]
 )
 
+
+from webhelpers.html import tags 
+from webhelpers.html.builder import HTML
+
+class MyRadioSet(FieldRenderer):
+    def render(self, **kwargs):
+        html = ''
+        checked = kwargs['options'][0][1]
+        for label, value in kwargs['options']:
+            r = tags.radio(self.name, value, checked=value == checked)
+            t = HTML.tag('span', c=label)
+            l = HTML.tag('label', c=r+' '+t)
+            html += HTML.tag('li', c=l)
+        return HTML.tag('ul', class_='inputs-list', c=html)
+
+FAFieldSet.default_renderers['radio'] = MyRadioSet
+
 class Grid(FAGrid):
     def __init__(self, *args, **kwargs):
         super(Grid, self).__init__(*args, **kwargs)

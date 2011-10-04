@@ -81,7 +81,7 @@ def main(global_config, **settings):
     config.add_static_view('statics', 'blog:statics')
 
     # Home route
-    config.add_handler('home', get_route(), get_handler('test'), 'index')
+    config.add_handler('home', get_route(), get_handler('blog'), 'index')
 
     # Custom routes
 

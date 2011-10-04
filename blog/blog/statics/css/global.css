@@ -1,8 +1,9 @@
 html {
     height: 100%;
+    background: #e3e3e3;
 }
 body {
-    text-align: center;;
+    text-align: center;
     background: #e3e3e3;
     font-size: 12px;
     font-family: Sans-Serif;
@@ -50,7 +51,6 @@ body {
     width: 100%;
     background: url('../images/layouts/bg_header.png') repeat-x;
     height: 100px;
-    line-height:100px;
     margin-bottom:5px;
 }
 #blog-header a {
@@ -62,6 +62,7 @@ body {
     text-align:left;
     text-transform: uppercase;
     font-size:32px;
+    line-height:100px;
 }
 
 #blog-header #blog-menu {
@@ -72,6 +73,7 @@ body {
     font-size:16px;
     display:inline;
     padding-left:15px;
+    line-height:100px;
 }
 #blog-header #blog-menu a:hover {
     text-decoration:underline;
@@ -83,7 +85,7 @@ body {
     text-align:left;
     min-height:100px;
     overflow:auto;
-    padding-bottom:250px;
+    padding-bottom:200px;
 }
 
 .pagination.center,
@@ -99,8 +101,8 @@ body {
     width:100%;
     background: url('../images/layouts/bg_header.png') repeat-x;
     position: relative;
-    margin-top: -250px;
-    height: 250px;
+    margin-top: -200px;
+    height: 200px;
     clear:both;
 }
 
@@ -119,3 +121,9 @@ margin-top:-32767px;/* thank you Erik J - negate effect of float*/
     </style>
 <![endif]-->
 
+iframe {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+}
