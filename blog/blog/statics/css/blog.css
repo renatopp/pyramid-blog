@@ -1,0 +1,9 @@
+#blog-content {
+    background: #fff;
+    /*border: 1px solid #3a3a3a;*/
+}
+
+#blog-sidebar {
+    background:blue;
+    height:500px;
+}

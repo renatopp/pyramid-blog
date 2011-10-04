@@ -1,12 +1,11 @@
 {% if (items|length) %}
-    <table class="datatable">
-        <tfoot class="pagination">
-            <tr>
-                <td colspan="{{grid.render_fields|length}}">{{h.paginate(items)}}</td>
-            </tr>
-        </tfoot>
+    <table class="zebra-striped">
         {{grid.render()|safe}}
     </table>
+
+    <div class="pagination center">
+        {{h.paginate(items)}}
+    </div>
 {% else %}
     Nenhum item cadastrado
 {% endif %}

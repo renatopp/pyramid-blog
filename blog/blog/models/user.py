@@ -10,14 +10,13 @@ class User(Base, BaseModel):
     __tablename__ = 'user'
 
     id = Column(Integer, primary_key=True)
-    email = Column(Unicode, nullable=False, unique=True, label=u'Email')
-    password = Column(Unicode, nullable=False, label=u'Senha')
     nickname = Column(Unicode, nullable=False, label=u'Nick')
     realname = Column(Unicode, nullable=False, label=u'Nome Real')
+    email = Column(Unicode, nullable=False, unique=True, label=u'Email')
+    password = Column(Unicode, nullable=False, label=u'Senha')
     url = Column(Unicode, label=u'Website')
 
     posts = relationship('Post', backref='user')
-    comments = relationship('Comment', backref='user')
     
     def __init__(self, nickname=None, email=None, password=None):
         self.nickname = nickname
@@ -28,7 +27,7 @@ class User(Base, BaseModel):
         return '%s (%s)'%(self.nickname or self.realname, self.email)
 
     @classmethod
-    def _before_add(cls, form):
+    def _before_add(cls, form, params=None):
         passsalt = form.model.password+g.SALT
         form.model.password = hashlib.md5(passsalt).hexdigest()
 
@@ -38,6 +37,7 @@ class User(Base, BaseModel):
             readonly=True,
             exclude=[
                 grid.posts,
+                grid.password
             ]
         )
         grid.add_operations('user')

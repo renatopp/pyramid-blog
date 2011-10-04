@@ -13,7 +13,7 @@ from blog.libs import rest
 URL_PREFIX = '/'
 
 def get_route(*args):
-    return os.path.join(URL_PREFIX, *args)
+    return os.path.join(URL_PREFIX, *args).replace('\\', '/')
 
 def get_handler(handler):
     file = '%s_handler'%handler.lower()
@@ -89,7 +89,6 @@ def main(global_config, **settings):
     # Index/Action routes
     config.add_magic_handler('user')
     config.add_magic_handler('post')
-    config.add_magic_handler('comment')
     config.add_magic_handler('tag')
 
 

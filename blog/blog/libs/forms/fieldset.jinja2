@@ -1,0 +1,15 @@
+<fieldset>
+
+{% for field in fieldset.render_fields.itervalues() %}
+    <div class="clearfix {{'error' if field.errors}}">
+        <label for="{{field.renderer.name}}">{{field.label_text}}</label>
+        <div class="input">
+            {{field.render()|safe}}
+            {% if field.errors %}
+                <span class="help-inline">{{field.errors[0]}}</span>
+            {% endif %}
+        </div>
+    </div>
+{% endfor %}
+
+</fieldset>

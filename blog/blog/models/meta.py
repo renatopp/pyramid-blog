@@ -15,7 +15,7 @@ class BaseModel(object):
         grid.configure(readonly=True)
 
     @classmethod
-    def _before_add(cls, form):
+    def _before_add(cls, form, params=None):
         pass
 
 Session = scoped_session(sessionmaker(extension=ZopeTransactionExtension()))

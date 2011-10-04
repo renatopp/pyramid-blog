@@ -28,7 +28,6 @@ class Post(Base, BaseModel):
     parent = relation('Post', remote_side=[id], backref='children')
     user_id = Column(Integer, ForeignKey('user.id'), nullable=False)
     categorys = relationship('Tag', secondary='association_post_category', backref='posts')
-    comments = relationship('Comment', backref='post')
 
     def __init__(self):
         self.date = datetime.datetime.now()
@@ -40,6 +39,12 @@ class Post(Base, BaseModel):
         return self.title
 
     @classmethod
+    def _before_add(cls, form, params=None):
+        if params:
+            if 'Rascunho' in params.get('submit'):
+                form.model.status = 'Draft'
+
+    @classmethod
     def _configure_grid(cls, grid):
         grid.configure(
             readonly=True,
@@ -47,10 +52,13 @@ class Post(Base, BaseModel):
                 grid.alias,
                 grid.summary,
                 grid.content,
+                grid.date,
+                grid.modified,
                 grid.type,
                 grid.order,
-                grid.comments,
                 grid.parent,
+                grid.allow_comment,
+                grid.user,
                 grid.children,
             ],
         )
@@ -64,10 +72,12 @@ class Post(Base, BaseModel):
                 form.modified,
                 form.status,
                 form.type,
-                form.comments,
             ], 
             options=[
                 # form.summary.textarea().with_html(class_='markitup'),
                 form.content.textarea().with_html(class_='markitup'),
             ]
         )
+
+
+        

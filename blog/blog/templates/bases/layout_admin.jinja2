@@ -3,50 +3,41 @@
 <head>
     <title>Titulo</title>
     {% include "/includes/header_imports.jinja2" %}
-    {{h.less_stylesheet_link(resource('css', 'admin.less'))}}
-    {{h.javascript_link(resource('js', 'less-1.1.3.min.js'))}}
     {{h.stylesheet_link(resource('css', 'pygments', 'pygments_tango.css'))}}
     {{h.stylesheet_link(resource('js', 'markitup', 'skins', 'simple', 'style.css'))}}
     {{h.stylesheet_link(resource('js', 'markitup', 'sets', 'rst', 'style.css'))}}
     {{h.javascript_link(resource('js', 'markitup', 'sets', 'rst', 'set.js'))}}
     {{h.javascript_link(resource('js', 'markitup', 'jquery.markitup.js'))}}
     {{h.javascript_link(resource('js', 'jquery.corner.js'))}}
+    {{h.stylesheet_link(resource('css', 'admin.css'))}}
 
     <script type="text/javascript" >
        $(document).ready(function() {
-          $(".markitup").markItUp(mySettings);
-          $(".field_error").corner('bottom');
+            //align_footer();
+            $(".markitup").markItUp(mySettings);
+            $(".field_error").corner('bottom');
        });
     </script>
 </head>
 
 <body>
     {% include "/includes/flash.jinja2" %}
-    <div id="header">
-        <div class="container">
-            <span id="title">Renatopp</span>
+    <div id="blog-wrap">
+        {% include "/includes/header.jinja2" %}
 
-            <div id="menu">
-                <ul>
-                    <li>Blog</li>
-                    <li>Artigos</li>
-                    <li>Snippets</li>
-                    <li>Sobre</li>
-                </ul>
+        <div id="blog-main" class="container">
+            <div class="row">
+                <div id="blog-content-wrap" class="span16">
+                    <div id="blog-content">
+                        {% block content %}
+
+                        {% endblock %}
+                    </div>
+                </div>
             </div>
         </div>
+
     </div>
-
-    <div id="main">
-        <a href="/users">Users</a> | <a href="/posts">Posts</a> | 
-        <a href="/comments">Comments</a> | <a href="/tags">Tags</a><br>
-        <div id="content">
-        {% block content %}
-
-        {% endblock %}
-        </div>
-    </div>
-
 
     {% include "/includes/footer.jinja2" %}
 </body>

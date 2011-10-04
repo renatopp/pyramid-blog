@@ -6,15 +6,28 @@ from formalchemy import FieldSet as FAFieldSet, Grid as FAGrid, Field, types
 from formalchemy import config
 from formalchemy import templates
 from formalchemy.fields import FieldRenderer
+from jinja2 import Environment, FileSystemLoader
 
 from blog.models import Session
 from blog import globals as g
 
+class Jinja2Engine(templates.TemplateEngine):
+    extension = 'jinja2'
+    _lookup = None
+    
+    def get_template(self, name, **kw):
+        if self._lookup is None:
+            self._lookup = Environment(loader=FileSystemLoader(self.directories))
+        
+        return self._lookup.get_template('%s.%s'%(name, self.extension))
+        
+    def render(self, template_name, **kw):
+        template = self.templates.get(template_name, None)
+        return template.render(**kw)
+
 config.from_config({'formalchemy.encoding':'utf-8'})
-config.engine = templates.MakoEngine(
-    directories=[os.path.dirname(__file__)],
-    input_encoding='utf-8',
-    output_encoding='utf-8'
+config.engine = Jinja2Engine(
+    directories=[os.path.dirname(__file__)]
 )
 
 class Grid(FAGrid):

@@ -1,10 +1,8 @@
 {{h.form('')}}
-    <div class="form">
-        {{form.render()|safe}}
+    {{form.render()|safe}}
 
-        <div class="buttons">
-            {{h.submit('submit', 'Salvar', class_='goodchoice')}}
-            <input type="button" value="Cancelar" onclick="window.location='{{url_base|route_url}}'">
-        </div>
+    <div class="actions">
+        {{h.submit('submit', 'Salvar', class_='btn success')}}
+        <input type="button" value="Cancelar" onclick="window.location='{{url_base|route_url}}'" class="btn danger">
     </div>
 {{h.end_form()}}

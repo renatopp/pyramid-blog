@@ -1,0 +1,18 @@
+<thead>
+  <tr>
+    {% for field in collection.render_fields.itervalues() %}
+      <th>{{field.label_text or collection.prettify(field.key)|safe}}</th>
+    {% endfor %}
+  </tr>
+</thead>
+
+<tbody>
+{% for row in collection.rows %}
+  {% set n = collection._set_active(row) %}
+  <tr>
+  {% for field in collection.render_fields.itervalues() %}
+    <td>{{field.render_readonly()|safe}}</td>
+  {% endfor %}
+  </tr>
+{% endfor %}
+</tbody>

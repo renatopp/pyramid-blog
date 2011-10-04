@@ -20,8 +20,6 @@ requires = [
     'pyramid_jinja2',
     'pyramid_handlers',
     'pyramid_beaker',
-    'pyramid_mailer',
-    'psycopg2',
     ]
 
 if sys.version_info[:3] < (2,5,0):

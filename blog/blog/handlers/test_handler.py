@@ -9,4 +9,4 @@ class TestHandler(BaseHandler):
         # <a href="/comments">Comments</a><br>
         # ''')
 
-        return self.render('/bases/layout_admin.jinja2')
+        return self.render('/bases/layout_blog.jinja2')

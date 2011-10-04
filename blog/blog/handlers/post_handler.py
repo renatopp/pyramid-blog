@@ -14,6 +14,7 @@ class PostHandler(CrudHandler):
     model = Post
     renderer_base = '/controllers/posts'
     url_base = 'post'
+    order_by = 'id desc'
 
     @action(renderer='/controllers/posts/edit.jinja2')
     def create(self):
@@ -22,7 +23,7 @@ class PostHandler(CrudHandler):
         if self.request.POST:
             if form.validate():
                 form.sync()
-                self.model._before_add(form)
+                self.model._before_add(form, self.request.POST)
                 Session.add(form.model)
                 self.request.session.flash(u'Item incluído com sucesso.', 'success')
                 return HTTPFound(location=g.url(self.url_base))
@@ -46,8 +47,7 @@ class PostHandler(CrudHandler):
         post.content = self.request.POST['content']
 
         return dict(post=post)
-        
 
     def titlelize(self):
-        from weblog.libs.blogs import titlelize
+        from blog.libs.blogs import titlelize
         return Response(titlelize(self.request.GET['title']))

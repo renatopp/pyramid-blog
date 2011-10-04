@@ -12,3 +12,4 @@ from blog import globals as g
 class UserHandler(CrudHandler):
     model = User
     url_base = 'user'
+    order_by = 'nickname'

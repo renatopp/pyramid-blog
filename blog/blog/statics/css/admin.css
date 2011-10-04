@@ -1,0 +1,9 @@
+#blog-content-wrap {
+    padding-bottom:10px;
+}
+#blog-content {
+    background: #fff;
+    padding:5px;
+    border:1px solid #3a3a3a;
+    overflow:auto;
+}

@@ -36,10 +36,11 @@ class CrudHandler(BaseHandler):
     model = None # e.g. User
     url_base = None # e.g. 'user'
     renderer_base = None# e.g. '/derived/users'
+    order_by = 'id'
 
     def _do_index(self):
         page = self.request.GET.get('page', 1)
-        query = Session.query(self.model).order_by(self.model.id).all()
+        query = Session.query(self.model).order_by(self.order_by).all()
         items = Page(query, page=page, items_per_page=10)
 
         grid = Grid(self.model, items)
@@ -53,7 +54,7 @@ class CrudHandler(BaseHandler):
         if self.request.params:
             if form.validate():
                 form.sync()
-                self.model._before_add(form)
+                self.model._before_add(form, self.request.params)
                 Session.add(form.model)
                 self.request.session.flash(u'Item incluído com sucesso.', 'success')
                 return HTTPFound(location=g.url(self.url_base))
@@ -70,7 +71,7 @@ class CrudHandler(BaseHandler):
         if self.request.params:
             if form.validate():
                 form.sync()
-                self.model._before_add(form)
+                self.model._before_add(form, self.request.params)
                 Session.add(form.model)
                 self.request.session.flash(u'Item atualizado com sucesso.', 'success')
                 return HTTPFound(location=g.url(self.url_base))

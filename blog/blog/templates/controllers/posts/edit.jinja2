@@ -2,18 +2,16 @@
 {% block content %}
 
 {{h.form('')}}
-    <div class="form">
-        {{form.render()|safe}}
+    {{form.render()|safe}}
 
-        <div class="buttons">
-            {{h.submit('submit', 'Salvar Rascunho', class_='goodchoice')}}
-            {{h.submit('submit', 'Publicar', class_='goodchoice')}}
-            <input type="button" value="Cancelar" onclick="window.location='{{url_base|route_url}}'">
-        </div>
+    <div class="actions">
+        {{h.submit('submit', 'Salvar Rascunho', class_='btn')}}
+        {{h.submit('submit', 'Publicar', class_='btn success')}}
+        <input type="button" value="Cancelar" class="btn danger" onclick="window.location='{{url_base|route_url}}'">
     </div>
 {{h.end_form()}}
 
-
+<div id="bobafett"></div>
 
 <script type="text/javascript">
     $('#Post--title').keydown(function(event){

@@ -1,0 +1,121 @@
+html {
+    height: 100%;
+}
+body {
+    text-align: center;;
+    background: #e3e3e3;
+    font-size: 12px;
+    font-family: Sans-Serif;
+    height: 100%;
+}
+
+#blog-wrap {
+    min-height:100%;
+    text-align:center;
+}
+
+/*HEADER*/
+#blog-super-header {
+    width: 100%;
+    background: url('../images/layouts/bg_superheader.png') repeat-x;
+    height: 25px;
+    line-height: 25px;
+}
+
+#blog-super-header .left {
+    text-align: left;
+    color:#3a3a3a;
+}
+#blog-super-header .right {
+    text-align: right;
+}
+#blog-super-header .right img {
+    padding-top:3px;
+}
+#blog-super-header .right #search-input {
+    margin-top:-13px;
+    font-size:10px;
+    width:200px;
+    padding:0px;
+    outline:none;
+}
+#blog-super-header .right #search-button {
+    margin-top:-13px;
+    font-size:10px;
+    border:none;
+    background:url('../images/icons/search-20.png') left top;
+}
+
+#blog-header {
+    width: 100%;
+    background: url('../images/layouts/bg_header.png') repeat-x;
+    height: 100px;
+    line-height:100px;
+    margin-bottom:5px;
+}
+#blog-header a {
+    color: #fff;
+    text-decoration:none;
+}
+
+#blog-header #blog-title {
+    text-align:left;
+    text-transform: uppercase;
+    font-size:32px;
+}
+
+#blog-header #blog-menu {
+    text-align:right;
+}
+
+#blog-header #blog-menu ul li {
+    font-size:16px;
+    display:inline;
+    padding-left:15px;
+}
+#blog-header #blog-menu a:hover {
+    text-decoration:underline;
+}
+
+
+/*MAIN*/
+#blog-main {
+    text-align:left;
+    min-height:100px;
+    overflow:auto;
+    padding-bottom:250px;
+}
+
+.pagination.center,
+.pagination.center ul {
+    float: left;
+    position: relative;
+}
+.pagination.center { left: 50%; }
+.pagination.center ul { left: -50%; }
+
+/*FOOTER*/
+#blog-footer {
+    width:100%;
+    background: url('../images/layouts/bg_header.png') repeat-x;
+    position: relative;
+    margin-top: -250px;
+    height: 250px;
+    clear:both;
+}
+
+/*Opera Fix*/
+body:before {/* thanks to Maleika (Kohoutec)*/
+content:"";
+height:100%;
+float:left;
+width:0;
+margin-top:-32767px;/* thank you Erik J - negate effect of float*/
+}
+
+<!--[if !IE 7]>
+    <style type="text/css">
+        #blog-wrap {display:table;height:100%}
+    </style>
+<![endif]-->
+
