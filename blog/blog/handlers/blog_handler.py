@@ -21,7 +21,7 @@ class BlogHandler(BaseHandler):
         '''
         page = self.request.params.get('page', '1')
         query = Session.query(Post).filter(Post.status=='Published').order_by(desc(Post.id)).all()
-        posts = Page(query, page=page, items_per_page=10)
+        posts = Page(query, page=page, items_per_page=6)
     
         display = 'front' if page=='1' else 'list'
         

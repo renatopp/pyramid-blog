@@ -1,0 +1,45 @@
+{% extends "/bases/layout_blog.jinja2" %}
+
+{% macro post_header(gist) -%}
+<div class="span12 blog-postheader">
+    <div class="row">
+        <div class="span10">
+            <div class="blog-posttitle">
+                <strong>Gist {{gist.repo}}</strong>: {{gist.description}}<br>
+                <i>{{gist.files|join(', ')}}</i>
+            </div>
+        </div>
+        <div class="span2">
+            <div class="blog-postinfo">
+                {{gist.created_at}}
+                {#{{h.pdate(post.date)}}<br>
+                {{h.ptime(post.date)}}#}
+            </div>
+        </div>
+    </div>
+</div>
+{%- endmacro %}
+
+{% macro post_summary(gist) -%}
+<div class="span12 blog-postbody-summary">
+    <div class="blog-postcontent">
+        {#{{gist.description|default('<p>Esse snippet não possui descrição</p>', true)}}#}
+    </div>
+</div>
+{%- endmacro %}
+
+
+{% block content %}
+
+{% for gist in gists %}
+
+<div id="blog-content">
+    <div class="row">
+        {{post_header(gist)}}
+        {{post_summary(gist)}}
+    </div>
+</div>
+
+{% endfor %}
+
+{% endblock %}
