@@ -1,16 +1,25 @@
 <div id="blog-footer">
     <div class="container">
         <div class="row">
-            <div class="span4">
+            <div class="span2" style="text-align:left">
                 <br>
                 <br>
-                {{h.link_to('Blog', '/')}}<br>
-                {{h.link_to('Artigos', '/')}}<br>
-                {{h.link_to('Snippets', '/')}}<br>
-                {{h.link_to('Sobre', '/')}}<br>
+                <ul>
+                    <li>{{h.link_to('Blog', '/')}}</li>
+                    <li>{{h.link_to('Artigos', '/')}}</li>
+                    <li>{{h.link_to('Snippets', '/')}}</li>
+                    <li>{{h.link_to('Sobre', '/')}}</li>
+                </ul>
             </div>
-            <div class="span4">a</div>
-            <div class="span4">a</div>
+            <div class="span2" style="text-align:left">
+                <br>
+                <br>
+                texto
+            </div>
+            <div class="span8">
+                <br>
+                {% include "/includes/twitter_bar.jinja2" %}
+            </div>
             <div class="span4">
                 <br>
                 <br>

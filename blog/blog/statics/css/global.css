@@ -89,7 +89,7 @@ body {
     text-align:left;
     min-height:100px;
     overflow:auto;
-    padding-bottom:250px;
+    padding-bottom:210px;
 }
 
 .pagination.center,
@@ -105,8 +105,8 @@ body {
     width:100%;
     background: url('../images/layouts/bg_header.png') repeat-x;
     position: relative;
-    margin-top: -250px;
-    height: 250px;
+    margin-top: -210px;
+    height: 210px;
     clear:both;
 }
 
@@ -135,7 +135,7 @@ iframe {
 .box-blue pre, .box-yellow pre, .box-green pre { 
     min-height:15px; margin:5px 0px 5px 0px; padding:15px 15px 15px 15px; 
 }
-.box-blue pre { border-left:5px solid #0040ff; background:#c6e2ff; }
+.box-blue pre { border-left:5px solid #97c8fc; background:#c6e2ff; }
 .box-yellow pre { border-left:5px solid #ffc001; background:#ffe79f; }
 /*.box-green { border-left:5px solid #41bf00; background:#c1e3b0; }*/
 .box-green pre { 
@@ -151,4 +151,34 @@ li {
 
 .divvideo {
     text-align: center;
+}
+
+
+#twitter-bar {
+    /*background: #f5f5f5;*/
+    padding: 5px;
+}
+
+ul.twitter-ul {
+    margin-top: 5px;
+    text-align: justify;
+    list-style: none;
+    padding-left: 0px;
+    margin-left: 0px;
+}
+ 
+ul.twitter-ul li {
+    padding: 5px;
+    margin-left: 0px;
+    margin-bottom: 5px;
+    background: #fff;
+    border:1px solid #aaa;
+}
+ 
+ul.twitter-ul li span {
+/* Insider Span style here | Although not necessary, but you can do almost anything with CSS   */
+}
+    
+ul.twitter-ul li a {
+/* Style for the hyperlink inside the list */
 }
