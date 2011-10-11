@@ -33,7 +33,7 @@
             <div class="span6">
                 <div style="padding:5px">
                     {% for category in post.categorys %}
-                        <a href="/blogs?tag={{category.name}}"><span class="label notice">{{category.name}}</span></a>
+                        <a href="/blogs?tag={{category.name}}"><span class="label warning">{{category.name}}</span></a>
                         {#{% if not loop.last %}, {% endif %}#}
                     {% endfor %}
                 </div>
