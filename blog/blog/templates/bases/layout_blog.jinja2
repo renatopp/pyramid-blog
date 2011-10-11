@@ -4,12 +4,14 @@
     <title>Titulo</title>
     {% include "/includes/header_imports.jinja2" %}
     {{h.stylesheet_link(resource('css', 'blog.css'))}}
+    {{h.stylesheet_link(resource('css', 'pygments', 'pygments_tango.css'))}}
     {{h.javascript_link('https://apis.google.com/js/plusone.js')}}
     {{h.javascript_link('http://connect.facebook.net/en_US/all.js#xfbml=1')}}
 
     <script type="text/javascript" >
-       $(document).ready(function() {
-       });
+        $(document).ready(function() {
+            $('a[rel="tip-left"]').twipsy({title:'alt', placement:'left'});
+        });
     </script>
 </head>
 
@@ -28,10 +30,6 @@
                 </div>
 
                 <div id="blog-sidebar" class="span4">
-                    <a href="/users">Users</a> | 
-                    <a href="/posts">Posts</a> |
-                    <a href="/snippets">Snippets</a> |
-                    <a href="/tags">Tags</a><br>
                     {% include "/includes/sidebar.jinja2" %}
                 </div>
             </div>

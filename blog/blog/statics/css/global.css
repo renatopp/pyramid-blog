@@ -62,21 +62,25 @@ body {
     text-align:left;
     text-transform: uppercase;
     font-size:32px;
-    line-height:100px;
+    /*line-height:100px;*/
+    margin-top:38px;
 }
 
 #blog-header #blog-menu {
     text-align:right;
 }
-
-#blog-header #blog-menu ul li {
+#blog-header #blog-menu ul {
+    float:right;
+    margin-top:28px;
+}
+#blog-header #blog-menu ul.lol li {
     font-size:16px;
     display:inline;
     padding-left:15px;
     line-height:100px;
 }
 #blog-header #blog-menu a:hover {
-    text-decoration:underline;
+    text-decoration:none;
 }
 
 
@@ -85,7 +89,7 @@ body {
     text-align:left;
     min-height:100px;
     overflow:auto;
-    padding-bottom:200px;
+    padding-bottom:250px;
 }
 
 .pagination.center,
@@ -101,8 +105,8 @@ body {
     width:100%;
     background: url('../images/layouts/bg_header.png') repeat-x;
     position: relative;
-    margin-top: -200px;
-    height: 200px;
+    margin-top: -250px;
+    height: 250px;
     clear:both;
 }
 
@@ -126,4 +130,25 @@ iframe {
     padding: 0;
     border: 0;
     outline: 0;
+}
+
+.box-blue pre, .box-yellow pre, .box-green pre { 
+    min-height:15px; margin:5px 0px 5px 0px; padding:15px 15px 15px 15px; 
+}
+.box-blue pre { border-left:5px solid #0040ff; background:#c6e2ff; }
+.box-yellow pre { border-left:5px solid #ffc001; background:#ffe79f; }
+/*.box-green { border-left:5px solid #41bf00; background:#c1e3b0; }*/
+.box-green pre { 
+    /*border-left:5px solid #cce580; */
+    background:#eeffcc; 
+    border-top: 1px solid #cce580;
+    border-bottom: 1px solid #cce580;
+}
+
+li {
+    color: #565656; 
+}
+
+.divvideo {
+    text-align: center;
 }

@@ -9,6 +9,7 @@ from sqlalchemy import engine_from_config
 from blog.models import initialize_sql
 from blog.libs import helpers
 from blog.libs import rest
+from blog import globals as g
 
 URL_PREFIX = '/'
 
@@ -28,6 +29,7 @@ def add_renderer_globals(event):
     event['resource'] = get_resource
     event['h'] = helpers
     event['rest'] = rest.reST2HTML
+    event['context'] = g.context
 
 def add_magic_handler(config, route_name, pattern=None, handler_name=None):
     """
@@ -83,14 +85,14 @@ def main(global_config, **settings):
     # Home route
     config.add_handler('home', get_route(), get_handler('blog'), 'index')
 
-    # Custom routes
-
-
     # Index/Action routes
     config.add_magic_handler('user')
     config.add_magic_handler('post')
     config.add_magic_handler('tag')
     config.add_magic_handler('snippet')
+
+    # Custom routes
+    config.add_handler('blog_entry', get_route('blogs', '{id}', '{alias}'), get_handler('blog'), 'view')
 
 
     return config.make_wsgi_app()

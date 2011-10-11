@@ -3,6 +3,7 @@ from pyramid.url import route_url
 
 request = None
 SALT = '[3}~@&d%(*g%$#' # salt for passwords
+context = {}
 
 def print_request():
     global request

@@ -26,3 +26,8 @@ class BlogHandler(BaseHandler):
         display = 'front' if page=='1' else 'list'
         
         return self.render('/controllers/blogs/index.jinja2', dict(display=display, posts=posts))
+
+    @action(renderer='/controllers/blogs/view.jinja2')
+    def view(self):
+        post = Session.query(Post).get(self.get_id())
+        return dict(post=post)

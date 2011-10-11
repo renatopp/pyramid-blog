@@ -9,11 +9,28 @@ from blog.libs.forms import FieldSet, Grid
 from blog.models import Session
 from blog import globals as g
 
+from urllib2 import urlopen, Request
+import json
+
+def get_last_projects():
+    return []
+    try:
+        url = Request('https://api.github.com/users/renatopp/repos?page=1&per_page=2', headers={'rel':'last'})
+        #url.add_header('rel', 'last')
+        return json.loads(urlopen(url).read())
+    except:
+        return []
+
+
 class BaseHandler(object):
     def __init__(self, request):
         g.request = request
         self.request = request
         self.__before__()
+
+        if not g.context.has_key('last_projects'):
+            g.context['last_projects'] = get_last_projects()
+
 
     def __before__(self):
         pass

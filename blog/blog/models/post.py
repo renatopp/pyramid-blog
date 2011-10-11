@@ -79,6 +79,7 @@ class Post(Base, BaseModel):
                 form.date, 
                 form.modified,
                 form.status,
+                form.children,
             ], 
             options=[
                 form.title.with_html(class_='span12'),
@@ -90,7 +91,6 @@ class Post(Base, BaseModel):
                 form.parent.with_html(class_='span12'),
                 form.categorys.with_html(class_='span12'),
                 form.user.with_html(class_='span12'),
-                form.children.with_html(class_='span12'),
             ]
         )
 
