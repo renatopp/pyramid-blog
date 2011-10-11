@@ -93,6 +93,8 @@ def main(global_config, **settings):
 
     # Custom routes
     config.add_handler('blog_entry', get_route('blogs', '{id}', '{alias}'), get_handler('blog'), 'view')
+    config.add_handler('article', get_route('articles'), get_handler('blog'), 'article')
+    config.add_handler('page', get_route('{alias}'), get_handler('blog'), 'page')
 
 
     return config.make_wsgi_app()

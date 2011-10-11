@@ -4,6 +4,8 @@ from pyramid_handlers import action
 from pyramid.renderers import render_to_response
 from pyramid.httpexceptions import HTTPFound
 
+from sqlalchemy import desc
+
 from blog.libs.paginates import Page
 from blog.libs.forms import FieldSet, Grid
 from blog.handlers import CrudHandler
@@ -15,6 +17,20 @@ class PostHandler(CrudHandler):
     renderer_base = '/controllers/posts'
     url_base = 'post'
     order_by = 'id desc'
+
+    def index(self):
+        page = self.request.params.get('page', '1')
+        query = Session.query(Post).order_by(desc(Post.id))
+        if self.request.params.get('type'):
+            query = query.filter(Post.type=='page')
+        else:
+            query = query.filter(Post.type!='page')
+        items = Page(query, page=page, items_per_page=10)
+        
+        grid = Grid(self.model, items)
+        Post._configure_grid(grid)
+            
+        return self.render('/bases/crud_index.jinja2', dict(grid=grid, items=items, url_base=self.url_base))
 
     @action(renderer='/controllers/posts/edit.jinja2')
     def create(self):

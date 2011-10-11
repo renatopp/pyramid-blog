@@ -12,11 +12,11 @@ def reST2HTML(text, cut_at_break=False):
     if not text:
         return u''
         
-    if cut_at_break:
-        if '.. breakpoint::' in text:
-            text = text[:text.find('.. breakpoint::')]
 
     parts = core.publish_parts(source=text, writer_name='html')
-    return parts['body_pre_docinfo'] + parts['fragment']
+    text = parts['body_pre_docinfo'] + parts['fragment']
 
-
+    if cut_at_break:
+        if '<!--breakpoint-->' in text:
+            text = text[:text.find('<!--breakpoint-->')]
+    return text
