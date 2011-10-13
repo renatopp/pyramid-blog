@@ -1,12 +1,15 @@
+
+{% if 'user_id' in request.session %}
 <div class="box">
     <div style="text-align:center">
         <a href="/users">Users</a> | 
         <a href="/posts">Posts</a> |
-        <a href="/snippets">Snippets</a> |
         <a href="/tags">Tags</a> |
-        <a href="/posts?type=page">Pages</a>
+        <a href="/posts?type=page">Pages</a> |
+        <a href="/users/logout">Sair</a>
     </div>
 </div>
+{% endif %}
 
 <div class="box">
     <h2>Quem vos fala...</h2>
@@ -60,18 +63,7 @@
 
     </ul>
 </div>
-{#
-<div class="box">
-    <h2>Projetos Recentes</h2>
 
-    <ul>
-    {% for project in context['last_projects']|reverse %}
-        <li>{{h.link_to(project.name, project.html_url, rel='tip-left', alt=project.description)}}</li>
-    {% endfor %}
-    </ul>
-
-</div>
-#}
 <div class="box">
     <h2>Social</h2>
 

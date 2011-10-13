@@ -43,9 +43,9 @@
 .blog-postcontent h2,
 .blog-postcontent h3,
 .blog-postcontent h4 {
-    border-left: 5px solid #97c8fc;
-    background:#c6e2ff;
-    padding-left: 5px;
+    /*border-left: 5px solid #97c8fc;*/
+    /*background:#c6e2ff;*/
+    /*padding-left: 5px;*/
     margin:5px 0px;
 }
 
@@ -55,6 +55,8 @@
 .blog-postcontent .section h2 { font-size:18px; }
 .blog-postcontent .section h3 { font-size:16px; }
 .blog-postcontent .section h4 { font-size:14px; }
+
+.blog-postcontent .blog-more { text-align:right; }
 
 cite {
     font-style: italic;
@@ -88,6 +90,9 @@ cite {
 .blog-postbody-summary {
     border:1px solid #aaa;
     border-top:none;
+}
+.blog-postbody-summary p {
+    display: inline;
 }
 .blog-postcontent {
     padding:5px;

@@ -3,6 +3,7 @@ from pyramid.response import Response
 from pyramid_handlers import action
 from pyramid.renderers import render_to_response
 from pyramid.httpexceptions import HTTPFound
+from pyramid.url import route_url as url
 
 from blog.libs.paginates import Page
 from blog.libs.forms import FieldSet, Grid
@@ -12,28 +13,20 @@ from blog import globals as g
 from urllib2 import urlopen, Request
 import json
 
-def get_last_projects():
-    return []
-    try:
-        url = Request('https://api.github.com/users/renatopp/repos?page=1&per_page=2', headers={'rel':'last'})
-        #url.add_header('rel', 'last')
-        return json.loads(urlopen(url).read())
-    except:
-        return []
-
-
 class BaseHandler(object):
     def __init__(self, request):
         g.request = request
         self.request = request
         self.__before__()
 
-        if not g.context.has_key('last_projects'):
-            g.context['last_projects'] = get_last_projects()
-
+        self.urlLogin = '/users/login?back_to='+self.request.path_url
 
     def __before__(self):
         pass
+
+    def auth(self):
+        session = self.request.session
+        return 'user_id' not in session
 
     def get_id(self):
         if 'id' in self.request.matchdict:
@@ -54,6 +47,7 @@ class CrudHandler(BaseHandler):
     url_base = None # e.g. 'user'
     renderer_base = None# e.g. '/derived/users'
     order_by = 'id'
+    auth_actions = ['index', 'create', 'update', 'delete']
 
     def _do_index(self):
         page = self.request.GET.get('page', 1)
@@ -105,6 +99,9 @@ class CrudHandler(BaseHandler):
 
 
     def index(self):
+        if 'index' in self.auth_actions and self.auth():
+            return HTTPFound(location=self.urlLogin)
+
         params = self._do_index()
         if self.renderer_base:
             renderer = self.renderer_base+'/index.jinja2'
@@ -113,6 +110,9 @@ class CrudHandler(BaseHandler):
         return self.render(renderer, params)
 
     def create(self):
+        if 'create' in self.auth_actions and self.auth():
+            return HTTPFound(location=self.urlLogin)
+
         params = self._do_create()
         if self.renderer_base:
             renderer = self.renderer_base+'/edit.jinja2'
@@ -121,6 +121,9 @@ class CrudHandler(BaseHandler):
         return self.render(renderer, params)
 
     def update(self):
+        if 'update' in self.auth_actions and self.auth():
+            return HTTPFound(location=self.urlLogin)
+
         params = self._do_update()
         if self.renderer_base:
             renderer = self.renderer_base+'/edit.jinja2'
@@ -129,4 +132,7 @@ class CrudHandler(BaseHandler):
         return self.render(renderer, params)
 
     def delete(self):
+        if 'delete' in self.auth_actions and self.auth():
+            return HTTPFound(location=self.urlLogin)
+
         return self._do_delete()

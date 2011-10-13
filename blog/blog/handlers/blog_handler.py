@@ -13,15 +13,12 @@ from blog.models import Session, Post
 from blog import globals as g
 
 class BlogHandler(BaseHandler):
-    def __get_posts_query(self, filter_type=None):
+    def __get_posts_query(self):
         query = Session.query(Post)
         query = query.filter(Post.status=='Published')
         query = query.filter(Post.type!='page')
         query = query.order_by(desc(Post.id))
 
-        if filter_type:
-            query = query.filter(Post.type==filter_type)
-        
         return query
 
     def index(self):

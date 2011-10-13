@@ -1,7 +1,20 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>Titulo</title>
+
+    <meta name="google-site-verification" content="go1cBr6f50lQOt9PWkjBux8vhfE6p8oHZRCLEDe2wiQ" />
+    <meta name="y_key" content="fae7a18089d8b6cf" />
+    <meta name="msvalidate.01" content="1A87C5AF22BE7D7F6B5A1F8D3CC471D6" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="author" content="Renato Pereira">
+    <meta name="description" content="{% block metadescription %}{{g.siteinfo}}{% endblock %}">
+    <meta name="keywords" content="Ciência da computação, computação, inteligência artificial, IA, redes neurais, python, programação, css, javascript, testes, snippets, artigos, pylons, pyramid, peach, blog.">
+    <link rel="image_src" href="{{resource('images', 'blogs', 'avatar-xbox-grande.png')}}" />
+    <link rel="shortcut icon" href="{{resource('images', 'layouts', 'favicon.ico')}}">
+    <link rel="alternate" type="application/rss+xml" href="/feeds" title="RSS Blog">
+    <link rel="alternate" type="application/rss+xml" href="/feeds/articles" title="RSS Artigos">
+
+    <title>{% block pagetitle %}Renatopp.com{% endblock %}</title>
     {% include "/includes/header_imports.jinja2" %}
     {{h.stylesheet_link(resource('css', 'blog.css'))}}
     {{h.stylesheet_link(resource('css', 'pygments', 'pygments_tango.css'))}}
@@ -13,6 +26,24 @@
             $('a[rel="tip-left"]').twipsy({title:'alt', placement:'left'});
         });
     </script>
+
+    {% if request.server_port != 6543 and 'user_id' not in request.session and request.path != '/users/login' %}
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-22933200-1']);
+        _gaq.push(['_setDomainName', 'none']);
+        _gaq.push(['_setAllowLinker', true]);
+        _gaq.push(['_trackPageview']);
+
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+
+    </script>
+    {% endif %}
 </head>
 
 <body>

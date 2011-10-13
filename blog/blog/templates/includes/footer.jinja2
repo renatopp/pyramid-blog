@@ -5,16 +5,32 @@
                 <br>
                 <br>
                 <ul>
-                    <li>{{h.link_to('Blog', 'home'|route_url)}}</li>
-                    <li>{{h.link_to('Artigos', 'article'|route_url)}}</li>
-                    <li>{{h.link_to('Snippets', 'snippet'|route_url)}}</li>
-                    <li>{{h.link_to('Sobre', 'page'|route_url(alias='sobre'))}}</li>
+                    <li><strong>Renatopp.com</strong></li>
+                    <ul>
+                        <li>{{h.link_to('Blog', 'home'|route_url)}}</li>
+                        <li>{{h.link_to('Artigos', 'article'|route_url)}}</li>
+                        <li>{{h.link_to('Snippets', 'snippet'|route_url)}}</li>
+                        <li>{{h.link_to('Sobre', 'page'|route_url(alias='sobre'))}}</li>
+                    </ul>
                 </ul>
             </div>
             <div class="span2" style="text-align:left">
                 <br>
                 <br>
-                texto
+                <ul>
+                    <li><strong>Comunidades</strong></li>
+                    <ul>
+                        <li>{{h.link_to('Python', 'http://www.python.org.br')}}</li>
+                        <li>{{h.link_to('Pylons', 'http://pylonsproject.org')}}</li>
+                        <li>{{h.link_to('Opensuse', 'http://pt.opensuse.org/')}}</li>
+                        <li>{{h.link_to('Peach', 'http://code.google.com/p/peach')}}</li>
+                    </ul>
+
+                    <li><strong>Projetos</strong></li>
+                    <ul>
+                        <li>{{h.link_to('Batma', 'page'|route_url(alias='batma'))}}</li>
+                    </ul>
+                </ul>
             </div>
             <div class="span8">
                 <br>

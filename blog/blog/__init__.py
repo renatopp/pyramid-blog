@@ -30,6 +30,7 @@ def add_renderer_globals(event):
     event['h'] = helpers
     event['rest'] = rest.reST2HTML
     event['context'] = g.context
+    event['g'] = g
 
 def add_magic_handler(config, route_name, pattern=None, handler_name=None):
     """
@@ -73,7 +74,6 @@ def main(global_config, **settings):
     config = Configurator(settings=settings)
     config.include('pyramid_handlers')
     config.include('pyramid_jinja2')
-    config.include('pyramid_mailer')
 
     session_factory = session_factory_from_settings(settings)
     config.set_session_factory(session_factory)
@@ -90,11 +90,18 @@ def main(global_config, **settings):
     config.add_magic_handler('post')
     config.add_magic_handler('tag')
     config.add_magic_handler('snippet')
+    config.add_magic_handler('media')
+    config.add_magic_handler('feed')
+
+    # Compatibilidade
+    config.add_handler('feed_comp', get_route('feed'), get_handler('feed'), 'feed')
 
     # Custom routes
+    config.add_handler('blog_index', get_route('blogs'), get_handler('blog'), 'index')
     config.add_handler('blog_entry', get_route('blogs', '{id}', '{alias}'), get_handler('blog'), 'view')
     config.add_handler('article', get_route('articles'), get_handler('blog'), 'article')
     config.add_handler('page', get_route('{alias}'), get_handler('blog'), 'page')
+
 
 
     return config.make_wsgi_app()

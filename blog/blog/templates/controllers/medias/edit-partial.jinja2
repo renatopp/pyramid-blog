@@ -1,0 +1,12 @@
+<div class="row" style="border:1px solid #ddd; margin-left:0px">
+    {{h.form('', class_='form-stacked')}}
+    <fieldset>
+        <div class="clearfix">
+            <div class="input">
+                {{h.file('file')}}
+                {{h.submit('enviar', 'Fazer Upload', class_='btn small primary')}}
+            </div>
+        </div>
+    </fieldset>
+    {{h.end_form()}}
+</div>

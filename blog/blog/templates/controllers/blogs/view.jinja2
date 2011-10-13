@@ -1,5 +1,8 @@
 {% extends "/bases/layout_blog.jinja2" %}
 
+{% block pagetitle %}{{post.title}} - {% endblock %}
+{% block metadescription %}{{post.summary|replace('"', "'")}}{% endblock %}
+
 {% macro post_header(post) -%}
 <div class="span12 blog-postheader">
     <div class="row">
@@ -33,16 +36,18 @@
             <div class="span6">
                 <div style="padding:5px">
                     {% for category in post.categorys %}
-                        <a href="/blogs?tag={{category.name}}"><span class="label warning">{{category.name}}</span></a>
+                        {#<a href="/blogs?tag={{category.name}}">#}
+                        <span class="label warning">{{category.name}}</span>
+                        {#</a>#}
                         {#{% if not loop.last %}, {% endif %}#}
                     {% endfor %}
                 </div>
             </div>
             <div class="span6">
                 <div style="padding:5px;margin-top:5px">
-                    {{h.googleplus('http://renatopp.com')|safe}}
-                    {{h.facebook('http://renatopp.com')|safe}}
-                    {{h.twitter('http://renatopp.com')|safe}}
+                    {{h.googleplus('blog_entry'|route_url(id=post.id, alias=post.alias))|safe}}
+                    {{h.facebook('blog_entry'|route_url(id=post.id, alias=post.alias))|safe}}
+                    {{h.twitter('blog_entry'|route_url(id=post.id, alias=post.alias))|safe}}
                 </div>
             </div>
         </div>
@@ -54,30 +59,33 @@
 
 <div id="blog-content">
     <div class="row">
-        {{ post_header(post) }}
-        {{ post_content(post) }}
-        {{ post_footer(post) }}
+        {% if post %}
+            {{ post_header(post) }}
+            {{ post_content(post) }}
+            {{ post_footer(post) }}
+        {% endif %}
     </div>
 </div>
 
-<br>
-<div id="blog-content">
-    <div id="disqus_thread"></div>
-    <script type="text/javascript">
-        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-        var disqus_shortname = 'renatopp'; // required: replace example with your forum shortname
 
-        /* * * DON'T EDIT BELOW THIS LINE * * */
-        (function() {
-            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-            dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-        })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-</div>
+{% if post.allow_comment %}
+    <br>
+    <div id="blog-content">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'renatopp'; // required: replace example with your forum shortname
 
-
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+{% endif %}
 
 {% endblock %}
 

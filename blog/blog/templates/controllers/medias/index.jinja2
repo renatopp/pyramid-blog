@@ -1,0 +1,14 @@
+{% extends "/bases/layout_admin.jinja2" %}
+{% block content %}
+
+<table>
+    <tbody>
+        {% for current, dirs, files in walk %}    
+            {% for file in files %}
+                <tr><td>{{file}}</td></tr>
+            {% endfor %}
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

@@ -4,6 +4,7 @@ __author__="renatopp"
 __date__ ="$Jul 22, 2010 8:06:16 PM$"
 
 from docutils import core
+from pyramid.url import route_url
 import blog.libs.rest.reSTyoutube
 import blog.libs.rest.reSTpygments
 import blog.libs.rest.reSTblog
@@ -11,7 +12,6 @@ import blog.libs.rest.reSTblog
 def reST2HTML(text, cut_at_break=False):
     if not text:
         return u''
-        
 
     parts = core.publish_parts(source=text, writer_name='html')
     text = parts['body_pre_docinfo'] + parts['fragment']

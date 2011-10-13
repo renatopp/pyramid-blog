@@ -1,0 +1,18 @@
+{% extends "/bases/layout_blog.jinja2" %}
+{% block content %}
+
+<div id="blog-content">
+    {{h.form('')}}
+        <br>
+        <div class="form">
+            {{form.render()|safe}}
+
+            <div class="actions">
+                {{h.submit('submit', 'Entrar', class_='btn primary')}}
+                <input type="button" value="Voltar" onclick="history.go(-1)" class='btn'>
+            </div>
+        </div>
+    {{h.end_form()}}
+</div>
+
+{% endblock %}

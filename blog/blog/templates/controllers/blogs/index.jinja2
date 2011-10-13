@@ -22,6 +22,8 @@
 <div class="span12 blog-postbody">
     <div class="blog-postcontent">
         {{rest(post.content, True)|safe}}
+        <br>
+        <div style="text-align:center">{{h.link_to('(ler mais...)', 'blog_entry'|route_url(id=post.id, alias=post.alias))}}</div>
     </div>
 </div>
 {%- endmacro %}
@@ -29,7 +31,11 @@
 {% macro post_summary(post) -%}
 <div class="span12 blog-postbody-summary">
     <div class="blog-postcontent">
-        {{rest(post.summary)|default('<p>Essa postagem não possui descrição</p>', true)|safe}}
+        {% if post.summary %}
+            {{rest(post.summary)|safe}} {{h.link_to('(ler mais...)', 'blog_entry'|route_url(id=post.id, alias=post.alias))}}
+        {% else %}
+            <p>Essa postagem não possui descrição</p>
+        {% endif %}
     </div>
 </div>
 {%- endmacro %}
@@ -41,15 +47,15 @@
             <div class="span6">
                 <div style="padding:5px">
                     {% if post.allow_comment %}
-                        <input type="button" class="btn primary" value="Comentar">
+                        {{h.link_to('Comentar', 'blog_entry'|route_url(id=post.id, alias=post.alias), class_='btn')}}
                     {% endif %}
                 </div>
             </div>
             <div class="span6">
                 <div style="padding:5px;margin-top:5px">
-                    {{h.googleplus('http://renatopp.com')|safe}}
-                    {{h.facebook('http://renatopp.com')|safe}}
-                    {{h.twitter('http://renatopp.com')|safe}}
+                    {{h.googleplus('blog_entry'|route_url(id=post.id, alias=post.alias))|safe}}
+                    {{h.facebook('blog_entry'|route_url(id=post.id, alias=post.alias))|safe}}
+                    {{h.twitter('blog_entry'|route_url(id=post.id, alias=post.alias), post.title)|safe}}
                 </div>
             </div>
         </div>

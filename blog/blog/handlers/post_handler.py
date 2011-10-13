@@ -19,6 +19,9 @@ class PostHandler(CrudHandler):
     order_by = 'id desc'
 
     def index(self):
+        if self.auth():
+            return HTTPFound(location=self.urlLogin)
+
         page = self.request.params.get('page', '1')
         query = Session.query(Post).order_by(desc(Post.id))
         if self.request.params.get('type'):
@@ -34,6 +37,9 @@ class PostHandler(CrudHandler):
 
     @action(renderer='/controllers/posts/edit.jinja2')
     def create(self):
+        if self.auth():
+            return HTTPFound(location=self.urlLogin)
+
         form = FieldSet(self.model, data=self.request.POST or None)
         self.model._configure_form(form)
         if self.request.POST:
@@ -50,6 +56,9 @@ class PostHandler(CrudHandler):
 
     @action(renderer='/controllers/posts/view.jinja2')
     def view(self):
+        if self.auth():
+            return HTTPFound(location=self.urlLogin)
+            
         post = Session.query(Post).get(self.get_id())
         return dict(post=post)
 
@@ -58,6 +67,9 @@ class PostHandler(CrudHandler):
 
     @action(renderer='/controllers/posts/view.jinja2')
     def preview(self):
+        if self.auth():
+            return HTTPFound(location=self.urlLogin)
+
         post = Post()
         post.title = u'Preview'
         post.content = self.request.POST['content']
@@ -65,5 +77,8 @@ class PostHandler(CrudHandler):
         return dict(post=post)
 
     def titlelize(self):
+        if self.auth():
+            return HTTPFound(location=self.urlLogin)
+
         from blog.libs.blogs import titlelize
         return Response(titlelize(self.request.GET['title']))

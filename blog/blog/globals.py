@@ -4,6 +4,12 @@ from pyramid.url import route_url
 request = None
 SALT = '[3}~@&d%(*g%$#' # salt for passwords
 context = {}
+siteinfo = u'Repositório \'pessoal\' com informações sobre '\
+           u'assuntos ligados a computação, inteligência '\
+           u'artificial, game dev, web dev, nerdices, '\
+           u'escrotizações, etc. - Por Renato Pereira '\
+           u'(renatopp).'
+
 
 def print_request():
     global request

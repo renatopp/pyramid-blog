@@ -2,6 +2,7 @@
 from pyramid.response import Response
 from pyramid_handlers import action
 from pyramid.httpexceptions import HTTPFound
+from pyramid.url import route_url as url
 
 from blog.libs.paginates import Page
 from blog.libs.forms import FieldSet, Grid
@@ -15,6 +16,9 @@ class UserHandler(CrudHandler):
     order_by = 'nickname'
 
     def update(self):
+        if self.auth():
+            return HTTPFound(location=self.urlLogin)
+
         item = Session.query(self.model).get(self.get_id())
         params = self.request.params.copy()
     
@@ -46,3 +50,41 @@ class UserHandler(CrudHandler):
             renderer = '/bases/crud_edit.jinja2'
 
         return self.render(renderer, params)
+
+    @action(renderer='/controllers/users/login.jinja2')
+    def login(self):
+        form = FieldSet(User, data=self.request.POST if self.request.POST else None)
+        form.configure(
+            include=[form.email, form.password],
+            options=[
+                form.password.password()
+            ]
+        )
+
+        if self.request.POST:
+            user = Session.query(User).filter(
+                (User.email==self.request.POST['User--email']) &
+                (User.password==User.get_pass_hash(self.request.POST['User--password']))
+            ).first()
+
+            if user is not None:
+                session = self.request.session
+                session['user_id'] = user.id
+                session['user_name'] = user.nickname
+                session['user_email'] = user.email
+
+                return HTTPFound(location=self.request.GET.get('back_to', url('post', self.request)))
+        
+        print '\n\n\n\n\n'
+        return dict(form=form)
+
+    def logout(self):
+        session = self.request.session
+        try:
+            del session['user_id']
+            del session['user_name']
+            del session['user_email']
+        except KeyError as e:
+            pass
+
+        return HTTPFound(location='/users/login')
