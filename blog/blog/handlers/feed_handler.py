@@ -27,7 +27,7 @@ class FeedHandler(BaseHandler):
             author_name=self.author
         )
 
-        posts = Session.query(Post).order_by(desc(Post.id)).limit(10).all()
+        posts = Session.query(Post).filter(Post.type!='page').order_by(desc(Post.id)).limit(10).all()
         for post in posts:
             summary = post.content[:200].replace('\n', '<br>')
             categorys = ', '.join([c.name for c in post.categorys]) or 'Sem Categoria'
