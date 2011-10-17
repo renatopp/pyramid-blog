@@ -65,7 +65,7 @@ class PostHandler(CrudHandler):
     def save_draft(self):
         pass
 
-    @action(renderer='/controllers/posts/view.jinja2')
+    @action(renderer='/controllers/blogs/view.jinja2')
     def preview(self):
         if self.auth():
             return HTTPFound(location=self.urlLogin)

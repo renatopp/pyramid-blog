@@ -22,3 +22,10 @@ class MediaHandler(BaseHandler):
             
         walk = os.walk('blog/statics/images/blogs')
         return dict(walk=walk)#Response(unicode(os.walk('blog/statics/images/blogs').next()[2]))
+
+    @action(renderer='/controllers/medias/edit.jinja2')
+    def edit(self):
+        if self.auth():
+            return HTTPFound(location=self.urlLogin)
+
+        file = os.path.isfile(self.get_id())

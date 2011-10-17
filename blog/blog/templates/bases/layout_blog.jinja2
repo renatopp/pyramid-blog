@@ -14,7 +14,7 @@
     <link rel="alternate" type="application/rss+xml" href="/feeds" title="RSS Blog">
     <link rel="alternate" type="application/rss+xml" href="/feeds/articles" title="RSS Artigos">
 
-    <title>{% block pagetitle %}Renatopp.com{% endblock %}</title>
+    <title>{% block pagetitle %}{% endblock %}Renatopp.com</title>
     {% include "/includes/header_imports.jinja2" %}
     {{h.stylesheet_link(resource('css', 'blog.css'))}}
     {{h.stylesheet_link(resource('css', 'pygments', 'pygments_tango.css'))}}

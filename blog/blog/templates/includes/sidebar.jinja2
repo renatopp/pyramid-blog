@@ -57,10 +57,20 @@
     <ul>
         <li><strong>Batma</strong></li>
         <ul>
-            <li>{{h.link_to('Projeto', 'http://renatopp.com/batma')}}</li>
+            <li>{{h.link_to('Página do Projeto', 'page'|route_url(alias='batma'))}}</li>
+            <li>{{h.link_to('Github', 'https://github.com/renatopp/batma')}}</li>
+        </ul>
+
+        <li><strong>Pyramid-Blog</strong></li>
+        <ul>
             <li>{{h.link_to('Github', 'https://github.com/renatopp/pyramid-blog')}}</li>
         </ul>
 
+        <li><strong>PGN Parser</strong></li>
+        <ul>
+            <li>{{h.link_to('Página do Projeto', 'page'|route_url(alias='pgnparser'))}}</li>
+            <li>{{h.link_to('Github', 'https://github.com/renatopp/pgnparser')}}</li>
+        </ul>
     </ul>
 </div>
 

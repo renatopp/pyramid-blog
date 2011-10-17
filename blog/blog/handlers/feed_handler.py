@@ -27,7 +27,7 @@ class FeedHandler(BaseHandler):
             author_name=self.author
         )
 
-        posts = Session.query(Post).filter(Post.type!='page').order_by(desc(Post.id)).limit(10).all()
+        posts = Session.query(Post).filter(Post.type!='page').filter(Post.status=='Published').order_by(desc(Post.id)).limit(10).all()
         for post in posts:
             summary = post.content[:200].replace('\n', '<br>')
             categorys = ', '.join([c.name for c in post.categorys]) or 'Sem Categoria'
@@ -53,7 +53,7 @@ class FeedHandler(BaseHandler):
             author_name=self.author
         )
 
-        posts = Session.query(Post).order_by(desc(Post.id)).filter(Post.type=='article').limit(10).all()
+        posts = Session.query(Post).order_by(desc(Post.id)).filter(Post.type=='article').filter(Post.status=='Published').limit(10).all()
         for post in posts:
             summary = post.content[:200].replace('\n', '<br>')
             categorys = ', '.join([c.name for c in post.categorys]) or 'Sem Categoria'
@@ -70,3 +70,23 @@ class FeedHandler(BaseHandler):
                 author_name=self.author
             )
         return Response(feed.writeString('utf-8'))
+
+    def sitemaps(self):
+        header = u'''<?xml version="1.0" encoding="UTF-8"?>\n
+        <urlset xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'''
+        footer = u'''</urlset>'''
+
+        model = u'''<loc>%s</loc><changefreq>daily</changefreq>\n'''
+        xmls = u''
+        posts = Session.query(Post).filter(Post.status=='Published').order_by(desc(Post.id)).all()
+        
+        xmls += model%(u'http://renatopp.com')
+
+        for post in posts:
+            if post.type == 'page':
+                xmls += model%url('page', self.request, alias=post.alias)
+            else:
+                xmls += model%url('blog_entry', self.request, id=post.id, alias=post.alias)
+        
+        return Response(header + xmls + footer)
+        

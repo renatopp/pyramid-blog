@@ -107,3 +107,19 @@ cite {
     /*padding:5px;*/
 }
 
+.align-left {
+    float:left;
+    margin-right:10px;
+}
+
+.align-right {
+    float:right;
+    margin-left:10px;
+}
+
+.align-center {
+    display: block;   
+    margin-left: auto;   
+    margin-right: auto;
+    margin-bottom: 15px;
+}
