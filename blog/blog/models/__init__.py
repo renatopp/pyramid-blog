@@ -5,9 +5,11 @@ from sqlalchemy.exc import IntegrityError
 from blog import globals as g
 from blog.models.meta import Session, Base
 from blog.models.associations import association_post_category
+from blog.models.associations import association_snippet_category
 from blog.models.user import User
 from blog.models.post import Post
 from blog.models.tag import Tag
+from blog.models.snippet import Snippet
 
 def populate():
     session = Session()

@@ -6,7 +6,6 @@
         <div class="span10">
             <div class="blog-posttitle">
                 <strong>Gist {{gist.repo}}</strong>: {{gist.description}}<br>
-                <i>{{gist.files|join(', ')}}</i>
             </div>
         </div>
         <div class="span2">
@@ -23,6 +22,11 @@
 {% macro post_summary(gist) -%}
 <div class="span12 blog-postbody-summary">
     <div class="blog-postcontent">
+        <ul>
+        {% for file in gist.files %}
+            <li><i>{{file}}</i></li>
+        {% endfor %}
+        </ul>
         {#{{gist.description|default('<p>Esse snippet não possui descrição</p>', true)}}#}
     </div>
 </div>

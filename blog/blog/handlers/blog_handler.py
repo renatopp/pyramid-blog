@@ -1,4 +1,6 @@
 #-*- coding:utf-8 -*-
+import pygments
+
 from pyramid.response import Response
 from pyramid_handlers import action
 from pyramid.renderers import render_to_response
@@ -9,7 +11,7 @@ from sqlalchemy import desc
 from blog.libs.paginates import Page
 from blog.libs.forms import FieldSet, Grid
 from blog.handlers import BaseHandler
-from blog.models import Session, Post
+from blog.models import Session, Post, Snippet
 from blog import globals as g
 
 class BlogHandler(BaseHandler):
@@ -63,4 +65,30 @@ class BlogHandler(BaseHandler):
         post = Session.query(Post).get(self.get_id())
         return dict(post=post)
 
+    def snippet_index(self):
+        '''
+        display:
+            front: shows the first post in a large box
+            list: shows all posts in a small box
+        '''
+        query = Session.query(Snippet).order_by(desc(Snippet.id))
+
+        page = self.request.params.get('page', '1')
+        snippets = Page(query, page=page, items_per_page=6)
+    
+        display = 'front' if page=='1' else 'list'
+        
+        return self.render('/controllers/blogs/snippet_index.jinja2', dict(display=display, snippets=snippets))
+
+    @action(renderer='/controllers/blogs/snippet_view.jinja2')
+    def snippet_view(self):
+        snippet = Session.query(Snippet).get(self.get_id())
+        
+        try:
+            lexer = pygments.lexers.get_lexer_by_name(snippet.language)
+        except ValueError:
+            lexer = pygments.lexers.TextLexer()
+        DEFAULT = pygments.formatters.HtmlFormatter(noclasses=False)
+
+        return dict(snippet=snippet, code=pygments.highlight(snippet.content, lexer, DEFAULT))
     

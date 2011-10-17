@@ -11,7 +11,7 @@ from sqlalchemy import desc
 from blog.libs.paginates import Page
 from blog.libs.forms import FieldSet, Grid
 from blog.handlers import BaseHandler
-from blog.models import Session, Post
+from blog.models import Session, Post, Snippet
 from blog import globals as g
 
 import os
@@ -43,6 +43,38 @@ class FeedHandler(BaseHandler):
                 description=description,
                 author_name=self.author
             )
+        return Response(feed.writeString('utf-8'))
+
+    def snippets(self):
+        feed = feedgenerator.Rss201rev2Feed(
+            title="Renatopp's - Feed dos Snippets",
+            link=self.request.host_url,
+            description="Snippets do super ultra hyper mega site http://renatopp.com",
+            author_name=self.author
+        )
+
+        snippets = Session.query(Snippet).order_by(desc(Snippet.id)).limit(10).all()
+        for snippet in snippets:
+            summary = snippet.summary or u'Sem descrição'
+            language = snippet.language
+            category = ', '.join([c.name for c in snippet.categorys]) or 'Sem Categoria'
+
+            description = u"""
+            %s<br>
+            <br>
+            Linguagem: %s <br>
+            Categorias: %s <br>
+            Visite o site para mais informações - 
+            <a href="http://renatopp.com">renatopp.com</a>.
+            """ % (summary, language, category)
+
+            feed.add_item(
+                title=snippet.title,
+                link=url('snippet_entry', self.request, id=snippet.id, alias=snippet.alias), 
+                description=description,
+                author_name="Renato Pereira"
+            )
+
         return Response(feed.writeString('utf-8'))
 
     def articles(self):

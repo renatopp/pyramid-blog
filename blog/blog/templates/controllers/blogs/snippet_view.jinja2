@@ -1,0 +1,94 @@
+{% extends "/bases/layout_blog.jinja2" %}
+
+{% block pagetitle %}{{snippet.title}} - {% endblock %}
+{% block metadescription %}{{snippet.summary|replace('"', "'")}}{% endblock %}
+
+{% macro snippet_header(snippet) -%}
+<div class="span12 blog-postheader">
+    <div class="row">
+        <div class="span10">
+            <div class="blog-posttitle">
+                <h2>{{h.link_to(snippet.title, 'snippet_entry'|route_url(id=snippet.id, alias=snippet.alias))}}</h2>
+            </div>
+        </div>
+        <div class="span2">
+            <div class="blog-postinfo">
+                {{h.pdate(snippet.date)}}<br>
+                {{h.ptime(snippet.date)}}
+            </div>
+        </div>
+    </div>
+</div>
+{%- endmacro %}
+
+{% macro snippet_content(snippet) -%}
+<div class="span12 blog-postbody">
+    <div class="blog-postcontent">
+        {{rest(snippet.summary)|safe}}
+        {{code|safe}}
+    </div>
+</div>
+{%- endmacro %}
+
+{% macro snippet_footer(snippet) -%}
+<div class="span12 blog-postfooter">
+    <div class="blog-postfootercontent">
+        <div class="row">
+            <div class="span6">
+                <div style="padding:5px">
+                    {% for category in snippet.categorys %}
+                        {#<a href="/blogs?tag={{category.name}}">#}
+                        <span class="label warning">{{category.name}}</span>
+                        {#</a>#}
+                        {#{% if not loop.last %}, {% endif %}#}
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="span6">
+                <div style="padding:5px;margin-top:5px">
+                    {{h.googleplus('snippet_entry'|route_url(id=snippet.id, alias=snippet.alias))|safe}}
+                    {{h.facebook('snippet_entry'|route_url(id=snippet.id, alias=snippet.alias))|safe}}
+                    {{h.twitter('snippet_entry'|route_url(id=snippet.id, alias=snippet.alias))|safe}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{%- endmacro %}
+
+{% block content %}
+
+<div id="blog-content">
+    <div class="row">
+        {% if snippet %}
+            {{ snippet_header(snippet) }}
+            {{ snippet_content(snippet) }}
+            {{ snippet_footer(snippet) }}
+        {% endif %}
+    </div>
+</div>
+
+
+{% if snippet.allow_comment %}
+    <br>
+    <div id="blog-content">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'renatopp'; // required: replace example with your forum shortname
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+{% endif %}
+
+{% endblock %}
+
+
+

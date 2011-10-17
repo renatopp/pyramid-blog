@@ -5,10 +5,16 @@ from webhelpers.html.tags import *
 from blog import globals as g
 
 def pdate(datetime):
-    return datetime.strftime('%d/%m/%Y')
+    try:
+        return datetime.strftime('%d/%m/%Y')
+    except:
+        return ''
 
 def ptime(datetime):
-    return datetime.strftime('%H:%M')
+    try:
+        return datetime.strftime('%H:%M')
+    except:
+        return ''
 
 def less_stylesheet_link(*urls):
     return stylesheet_link(*urls, rel='stylesheet/less')

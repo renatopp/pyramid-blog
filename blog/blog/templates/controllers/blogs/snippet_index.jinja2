@@ -1,0 +1,86 @@
+{% extends "/bases/layout_blog.jinja2" %}
+
+{% macro snippet_header(snippet) -%}
+<div class="span12 blog-postheader">
+    <div class="row">
+        <div class="span10">
+            <div class="blog-posttitle">
+                <h2>{{h.link_to(snippet.title, 'snippet_entry'|route_url(id=snippet.id, alias=snippet.alias))}}</h2>
+            </div>
+        </div>
+        <div class="span2">
+            <div class="blog-postinfo">
+                {{h.pdate(snippet.date)}}<br>
+                {{h.ptime(snippet.date)}}
+            </div>
+        </div>
+    </div>
+</div>
+{%- endmacro %}
+
+{% macro snippet_content(snippet) -%}
+<div class="span12 blog-postbody">
+    <div class="blog-postcontent">
+        {{rest(snippet.summary, True)|safe}}
+        <br>
+        <div style="text-align:center">{{h.link_to('(ler mais...)', 'snippet_entry'|route_url(id=snippet.id, alias=snippet.alias))}}</div>
+    </div>
+</div>
+{%- endmacro %}
+
+{% macro snippet_summary(snippet) -%}
+<div class="span12 blog-postbody-summary">
+    <div class="blog-postcontent">
+        {% if snippet.summary %}
+            {{rest(snippet.summary)|safe}} {{h.link_to('(ler mais...)', 'snippet_entry'|route_url(id=snippet.id, alias=snippet.alias))}}
+        {% else %}
+            <p>Esse snippet não possui descrição</p>
+        {% endif %}
+    </div>
+</div>
+{%- endmacro %}
+
+{% macro snippet_footer(snippet) -%}
+<div class="span12 blog-postfooter">
+    <div class="blog-postfootercontent">
+        <div class="row">
+            <div class="span6">
+                <div style="padding:5px">
+                    {% if snippet.allow_comment %}
+                        {{h.link_to('Comentar', 'snippet_entry'|route_url(id=snippet.id, alias=snippet.alias), class_='btn')}}
+                    {% endif %}
+                </div>
+            </div>
+            <div class="span6">
+                <div style="padding:5px;margin-top:5px">
+                    {{h.googleplus('snippet_entry'|route_url(id=snippet.id, alias=snippet.alias))|safe}}
+                    {{h.facebook('snippet_entry'|route_url(id=snippet.id, alias=snippet.alias))|safe}}
+                    {{h.twitter('snippet_entry'|route_url(id=snippet.id, alias=snippet.alias), snippet.title)|safe}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{%- endmacro %}
+
+{% block content %}
+
+{% for snippet in snippets %}
+
+<div id="blog-content">
+    <div class="row">
+        {{ snippet_header(snippet) }}
+        {{ snippet_summary(snippet) }}
+    </div>
+</div>
+
+{% endfor %}
+
+<div class="pagination center">
+    {{h.paginate(snippets)}}
+</div>
+
+{% endblock %}
+
+
+

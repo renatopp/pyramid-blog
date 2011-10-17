@@ -1,0 +1,39 @@
+{% extends "/bases/layout_admin.jinja2" %}
+{% block content %}
+
+{{h.form('')}}
+    {{form.render()|safe}}
+
+    <div class="actions">
+        {{h.submit('submit', 'Publicar', class_='btn success')}}
+        <input type="button" value="Cancelar" class="btn danger" onclick="window.location='{{url_base|route_url}}'">
+    </div>
+{{h.end_form()}}
+
+<div id="bobafett"></div>
+
+<script type="text/javascript">
+    $('#Snippet--title').keydown(function(event){
+        if (event.which == '9') {
+            $('#Snippet--alias').focus();
+
+            $.get(
+                "{{'snippet_action'|route_url(action='titlelize')}}"+'?title='+$('#Snippet--title').val(), 
+                function(data) {
+                    $('#Snippet--alias').val(data);
+                }
+            );
+        }
+    });
+
+    $('#Snippet--title').blur(function(){
+        $.get(
+            "{{'snippet_action'|route_url(action='titlelize')}}"+'?title='+$('#Snippet--title').val(), 
+            function(data) {
+                $('#Post--alias').val(data);
+            }
+        );
+    });
+</script>
+
+{% endblock %}
