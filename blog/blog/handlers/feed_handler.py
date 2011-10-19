@@ -104,11 +104,13 @@ class FeedHandler(BaseHandler):
         return Response(feed.writeString('utf-8'))
 
     def sitemaps(self):
-        header = u'''<?xml version="1.0" encoding="UTF-8"?>\n
-        <urlset xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'''
+        header = u'''<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.sitemaps.org/schemas/sitemap-image/1.1"
+        xmlns:video="http://www.sitemaps.org/schemas/sitemap-video/1.1">\n'''
         footer = u'''</urlset>'''
 
-        model = u'''<loc>%s</loc><changefreq>daily</changefreq>\n'''
+        model = u'''<url><loc>%s</loc><changefreq>daily</changefreq></url>\n'''
         xmls = u''
         posts = Session.query(Post).filter(Post.status=='Published').order_by(desc(Post.id)).all()
         
