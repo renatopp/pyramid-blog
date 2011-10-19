@@ -112,15 +112,22 @@ class FeedHandler(BaseHandler):
 
         model = u'''<url><loc>%s</loc><changefreq>daily</changefreq></url>\n'''
         xmls = u''
-        posts = Session.query(Post).filter(Post.status=='Published').order_by(desc(Post.id)).all()
         
+        xmls += u"\n<!-- HOME -->\n"
         xmls += model%(u'http://renatopp.com')
 
+        xmls += u"\n<!-- POSTS AND PAGES -->\n"
+        posts = Session.query(Post).filter(Post.status=='Published').order_by(desc(Post.id)).all()
         for post in posts:
             if post.type == 'page':
                 xmls += model%url('page', self.request, alias=post.alias)
             else:
                 xmls += model%url('blog_entry', self.request, id=post.id, alias=post.alias)
+
+        xmls += u"\n<!-- SNIPPETS -->\n"
+        snippets = Session.query(Snippet).order_by(desc(Snippet.id)).all()
+        for snippet in snippets:
+            xmls += model%url('snippet_entry', self.request, id=snippet.id, alias=snippet.alias)
         
         return Response(header + xmls + footer)
         
